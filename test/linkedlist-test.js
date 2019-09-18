@@ -1,3 +1,10 @@
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
+
+var describe = require("tape-compat").describe;
+var it = require("tape-compat").it;
+var expect = require("tape-compat").expect;
+var buckets = require("buckets");
+
 describe('Linked List', function () {
 
     var elems = 100,
@@ -7,9 +14,11 @@ describe('Linked List', function () {
         return a.el === b.el;
     }
 
-    beforeEach(function () {
+    function beforeEach() {
         list = new buckets.LinkedList();
-    });
+    };
+
+    beforeEach();
 
     it('add inserts elements in proper sequence', function () {
         var i;
@@ -47,6 +56,7 @@ describe('Linked List', function () {
     });
 
     it('reverse gives the right ordering with 1 element', function () {
+        beforeEach();
         list.add(1);
         list.reverse();
         expect(list.elementAtIndex(0)).toEqual(1);
@@ -73,6 +83,7 @@ describe('Linked List', function () {
     });
 
     it('elementAtIndex returns the correct value', function () {
+        beforeEach();
         var i, J;
         expect(list.elementAtIndex(-1)).toBeUndefined();
         expect(list.elementAtIndex(0)).toBeUndefined();
@@ -90,6 +101,7 @@ describe('Linked List', function () {
     });
 
     it('equals returns true only if lists have the elements in the same order', function () {
+        beforeEach();
         var list2 = new buckets.LinkedList();
         list.add(1);
         list.add(2);
@@ -108,6 +120,7 @@ describe('Linked List', function () {
 
 
     it("add doesn't insert element into invalid index", function () {
+        beforeEach();
         expect(list.add(0, 1)).toBeFalsy();
         expect(list.size() === 0).toBeTruthy();
         expect(list.first()).toBeUndefined();
@@ -153,6 +166,7 @@ describe('Linked List', function () {
 
 
     it('indexOf finds inserted elements', function () {
+        beforeEach();
         var j;
         expect(list.indexOf(0)).toEqual(-1);
         for (j = 0; j < elems; j += 1) {
@@ -167,6 +181,7 @@ describe('Linked List', function () {
     });
 
     it('indexOf finds elements with custom equals function', function () {
+        beforeEach();
         var j;
         expect(list.indexOf({
             el: 1
@@ -193,6 +208,7 @@ describe('Linked List', function () {
     });
 
     it('remove deletes inserted elements', function () {
+        beforeEach();
         var i, half;
         expect(list.remove(1)).toBeFalsy();
         expect(list.size() === 0).toBeTruthy();
@@ -247,6 +263,7 @@ describe('Linked List', function () {
     });
 
     it("remove returns false for non-existing elements", function () {
+        beforeEach();
         expect(list.remove(5)).toBeFalsy();
         expect(list.size()).toEqual(0);
         list.add(1);
@@ -279,6 +296,7 @@ describe('Linked List', function () {
     });
 
     it('removeElementAtIndex deletes elements at specified index', function () {
+        beforeEach();
         expect(list.removeElementAtIndex(0)).toBeUndefined();
         expect(list.removeElementAtIndex(-1)).toBeUndefined();
         expect(list.removeElementAtIndex(1)).toBeUndefined();
@@ -330,6 +348,7 @@ describe('Linked List', function () {
     });
 
     it('toArray returns elements in proper order', function () {
+        beforeEach();
         var arr;
         expect(list.toArray().length).toEqual(0);
 
@@ -347,6 +366,7 @@ describe('Linked List', function () {
 
 
     it('forEeach gives all the elements in the right order', function () {
+        beforeEach();
         var i;
         list.forEach(function (e) {
             expect(true).toEqual(false); // should not enter here
@@ -380,3 +400,5 @@ describe('Linked List', function () {
         expect(array).toEqual(b);
     });
 });
+
+require = requireOrig;});

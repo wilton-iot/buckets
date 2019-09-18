@@ -1,3 +1,10 @@
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
+
+var describe = require("tape-compat").describe;
+var it = require("tape-compat").it;
+var expect = require("tape-compat").expect;
+var buckets = require("buckets");
+
 describe('Arrays', function () {
 
     var eq = function (arg1, arg2) {
@@ -5,7 +12,7 @@ describe('Arrays', function () {
         },
         customObjectArray, numberArray;
 
-    beforeEach(function () {
+    function beforeEach() {
         var a = {
                 val: 1
             },
@@ -17,7 +24,9 @@ describe('Arrays', function () {
             };
         customObjectArray = [a, a, b, c];
         numberArray = [1, 8, 8, 8, 10, 10];
-    });
+    };
+
+    beforeEach();
 
     it('indexOf gives the right index for valid numbers', function () {
         expect(buckets.arrays.indexOf(numberArray, 1)).toEqual(0);
@@ -249,3 +258,5 @@ describe('Arrays', function () {
         expect(buckets.arrays.swap(numberArray, -1, 9)).toEqual(false);
     });
 });
+
+require = requireOrig;});

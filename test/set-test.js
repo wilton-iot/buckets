@@ -1,9 +1,18 @@
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
+
+var describe = require("tape-compat").describe;
+var it = require("tape-compat").it;
+var expect = require("tape-compat").expect;
+var buckets = require("buckets");
+
 describe('Set', function () {
     var set;
 
-    beforeEach(function () {
+    function beforeEach() {
         set = new buckets.Set();
-    });
+    };
+
+    beforeEach();
 
     it('size gives the right value', function () {
         set.add("a");
@@ -71,6 +80,7 @@ describe('Set', function () {
     });
 
     it('isEmpty returns true only if set has no elements', function () {
+        beforeEach();
         expect(set.isEmpty()).toBeTruthy();
         set.add(1);
         expect(set.isEmpty()).toBeFalsy();
@@ -154,6 +164,7 @@ describe('Set', function () {
     });
 
     it('difference removes elements', function () {
+        beforeEach();
 
         //Two empty sets
         var set2 = new buckets.Set(),
@@ -210,6 +221,7 @@ describe('Set', function () {
     });
 
     it('isSubsetOf returns true for super sets only', function () {
+        beforeEach();
 
         //Two empty sets
         var set2 = new buckets.Set();
@@ -264,6 +276,7 @@ describe('Set', function () {
     });
 
     it('forEach returns all elements', function () {
+        beforeEach();
         var i, values;
         set.forEach(function (e) {
             expect(false).toBeTruthy();
@@ -293,6 +306,7 @@ describe('Set', function () {
     });
 
     it('equals returns true only if sets have the same elements', function () {
+        beforeEach();
         var set2 = new buckets.Set();
         set.add(1);
         set.add(2);
@@ -307,3 +321,5 @@ describe('Set', function () {
         expect(set.equals([1, 2])).toBeFalsy();
     });
 });
+
+require = requireOrig;});

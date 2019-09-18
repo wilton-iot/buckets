@@ -1,3 +1,10 @@
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
+
+var describe = require("tape-compat").describe;
+var it = require("tape-compat").it;
+var expect = require("tape-compat").expect;
+var buckets = require("buckets");
+
 describe('Binary Search Tree', function () {
 
     var tree;
@@ -22,10 +29,11 @@ describe('Binary Search Tree', function () {
         tree.add('h');
     }
 
-    beforeEach(function () {
+    function beforeEach() {
         tree = new buckets.BSTree();
-    });
+    };
 
+    beforeEach();
 
     it('size gives the right value', function () {
         createTree1();
@@ -71,6 +79,7 @@ describe('Binary Search Tree', function () {
     });
 
     it('height returns -1 for empty tree', function () {
+        beforeEach();
         expect(tree.height()).toEqual(-1);
     });
 
@@ -82,6 +91,7 @@ describe('Binary Search Tree', function () {
     });
 
     it('maximum returns undefined for empty tree', function () {
+        beforeEach();
         expect(tree.maximum()).toBeUndefined();
     });
 
@@ -93,6 +103,7 @@ describe('Binary Search Tree', function () {
     });
 
     it('minimum returns undefined for empty tree', function () {
+        beforeEach();
         expect(tree.minimum()).toBeUndefined();
     });
 
@@ -115,6 +126,7 @@ describe('Binary Search Tree', function () {
     });
 
     it('isEmpty returns true only if the tree contains no elements', function () {
+        beforeEach();
         expect(tree.isEmpty()).toBeTruthy();
         tree.add(1);
         expect(tree.isEmpty()).toBeFalsy();
@@ -133,6 +145,7 @@ describe('Binary Search Tree', function () {
     });
 
     it('add can not insert existing elements into the tree', function () {
+        beforeEach();
         expect(tree.add('b')).toBeTruthy();
         expect(tree.add('b')).toBeFalsy();
     });
@@ -317,6 +330,7 @@ describe('Binary Search Tree', function () {
     });
 
     it('toArray returns an empty array for empty tree', function () {
+        beforeEach();
         expect(tree.toArray()).toEqual([]);
     });
 
@@ -336,3 +350,5 @@ describe('Binary Search Tree', function () {
         expect(tree.equals([1, 2])).toBeFalsy();
     });
 });
+
+require = requireOrig;});

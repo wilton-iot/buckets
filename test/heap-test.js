@@ -1,3 +1,10 @@
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
+
+var describe = require("tape-compat").describe;
+var it = require("tape-compat").it;
+var expect = require("tape-compat").expect;
+var buckets = require("buckets");
+
 describe('Heap', function () {
 
     var heap;
@@ -60,9 +67,11 @@ describe('Heap', function () {
         }
     }
 
-    beforeEach(function () {
+    function beforeEach() {
         heap = new buckets.Heap();
-    });
+    };
+
+    beforeEach();
 
     it('size returns the right value', function () {
         createHeap1();
@@ -131,6 +140,7 @@ describe('Heap', function () {
     });
 
     it('add interts lower element into the top', function () {
+        beforeEach();
         heap.add(3);
         expect(heap.peek()).toEqual(3);
         heap.add(2);
@@ -142,6 +152,7 @@ describe('Heap', function () {
     });
 
     it('add interts higher element beneath the top', function () {
+        beforeEach();
         heap.add(1);
         expect(heap.peek()).toEqual(1);
         heap.add(3);
@@ -153,6 +164,7 @@ describe('Heap', function () {
     });
 
     it('isEmpty returns true only if the heap contains no elements', function () {
+        beforeEach();
         var i;
         expect(heap.isEmpty()).toBeTruthy();
         createHeap1();
@@ -180,6 +192,7 @@ describe('Heap', function () {
     });
 
     it('forEeach gives all the elements', function () {
+        beforeEach();
         var elements = [];
         heap.forEach(function (e) {
             expect(true).toEqual(false); // should not enter here
@@ -209,6 +222,7 @@ describe('Heap', function () {
     });
 
     it('toArray returns an array with all the elements', function () {
+        beforeEach();
         expect(heap.toArray().length).toEqual(0);
 
         heap.add(5);
@@ -224,6 +238,7 @@ describe('Heap', function () {
     });
 
     it('equals returns true only if heaps have the same elements', function () {
+        beforeEach();
         var heap2 = new buckets.Heap();
         heap.add(1);
         heap.add(2);
@@ -240,3 +255,5 @@ describe('Heap', function () {
         expect(heap.equals([1, 2])).toBeFalsy();
     });
 });
+
+require = requireOrig;});

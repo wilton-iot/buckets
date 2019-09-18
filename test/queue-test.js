@@ -1,10 +1,19 @@
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
+
+var describe = require("tape-compat").describe;
+var it = require("tape-compat").it;
+var expect = require("tape-compat").expect;
+var buckets = require("buckets");
+
 describe('Queue', function () {
 
     var queue = null;
 
-    beforeEach(function () {
+    function beforeEach() {
         queue = new buckets.Queue();
-    });
+    };
+
+    beforeEach();
 
     function createQueue() {
         queue.enqueue('a');
@@ -98,6 +107,7 @@ describe('Queue', function () {
     });
 
     it('toArray gives the elements in order', function () {
+        beforeEach();
         var arr;
         expect(queue.toArray().length).toEqual(0);
 
@@ -114,6 +124,7 @@ describe('Queue', function () {
     });
 
     it('equals returns true only if queues have the same elements in order', function () {
+        beforeEach();
         var queue2 = new buckets.Queue();
         queue.add(1);
         queue.add(2);
@@ -129,3 +140,5 @@ describe('Queue', function () {
         expect(queue.equals([1, 2])).toBeFalsy();
     });
 });
+
+require = requireOrig;});

@@ -1,3 +1,10 @@
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
+
+var describe = require("tape-compat").describe;
+var it = require("tape-compat").it;
+var expect = require("tape-compat").expect;
+var buckets = require("buckets");
+
 describe('Bag', function () {
 
     var toStringF = function (f) {
@@ -5,9 +12,11 @@ describe('Bag', function () {
         },
         bag;
 
-    beforeEach(function () {
+    function beforeEach() {
         bag = new buckets.Bag();
-    });
+    };
+    
+    beforeEach();
 
     it('size gives the right value without duplicated elements', function () {
         bag.add('a');
@@ -31,6 +40,7 @@ describe('Bag', function () {
     });
 
     it('size gives the right value with duplicated elements', function () {
+        beforeEach();
         bag.add('a');
         bag.add('a');
         bag.add('b');
@@ -58,6 +68,7 @@ describe('Bag', function () {
     });
 
     it('contains returns false for non-existing elements', function () {
+        beforeEach();
         bag.add('c');
         bag.add('c');
         expect(bag.contains('e')).toBeFalsy();
@@ -94,6 +105,7 @@ describe('Bag', function () {
     });
 
     it('isEmpty returns true only if the bag contains no elements', function () {
+        beforeEach();
         expect(bag.isEmpty()).toBeTruthy();
         bag.add(1);
         bag.add(1);
@@ -123,6 +135,7 @@ describe('Bag', function () {
     });
 
     it('add inserts multiple copies', function () {
+        beforeEach();
         expect(bag.add('a', 1)).toBeTruthy();
         expect(bag.add('a')).toBeTruthy();
         expect(bag.add('b', 3)).toBeTruthy();
@@ -137,6 +150,7 @@ describe('Bag', function () {
     });
 
     it('remove deletes a single copy', function () {
+        beforeEach();
         expect(bag.add('a')).toBeTruthy();
         expect(bag.add('a')).toBeTruthy();
         expect(bag.add('b')).toBeTruthy();
@@ -183,6 +197,7 @@ describe('Bag', function () {
     });
 
     it('toSet includes a single copy per element', function () {
+        beforeEach();
         var set = bag.toSet();
         expect(set.size()).toEqual(0);
         expect(bag.add('b', 3)).toBeTruthy();
@@ -195,6 +210,7 @@ describe('Bag', function () {
     });
 
     it('forEeach gives all the elements', function () {
+        beforeEach();
         var a = [1, 5, 5, 6],
             count = 0;
         bag.forEach(function (e) {
@@ -236,6 +252,7 @@ describe('Bag', function () {
     });
 
     it('equals returns true only if bags have the same copies per element', function () {
+        beforeEach();
         var bag2 = new buckets.Bag();
 
         bag.add(1);
@@ -253,3 +270,5 @@ describe('Bag', function () {
         expect(bag.equals([1, 2])).toBeFalsy();
     });
 });
+
+require = requireOrig;});

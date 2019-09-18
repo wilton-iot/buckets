@@ -46,5 +46,20 @@
     "grunt-umd": "^2.4.0",
     "jsdoc2": "^2.4.0",
     "load-grunt-tasks": "^3.5.2"
+  },
+  "wilton": {
+    "excludes": [
+      "dist/buckets.min.js",
+      "dist/buckets.min.js.map",
+      "src",
+      "templates",
+      "test",
+      "Gruntfile.js",
+      "bower.json",
+      "runAllTests.js"
+    ],
+    "preMinifiedFiles": [
+        "dist/buckets.js"
+    ]
   }
 }

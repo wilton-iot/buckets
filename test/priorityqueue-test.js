@@ -1,3 +1,10 @@
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
+
+var describe = require("tape-compat").describe;
+var it = require("tape-compat").it;
+var expect = require("tape-compat").expect;
+var buckets = require("buckets");
+
 describe('Priority Queue', function () {
 
     var queue = null;
@@ -20,9 +27,11 @@ describe('Priority Queue', function () {
         return queue;
     }
 
-    beforeEach(function () {
+    function beforeEach() {
         queue = new buckets.PriorityQueue();
-    });
+    };
+
+    beforeEach();
 
     it('size return the right value', function () {
         createPriorityQueue1();
@@ -73,6 +82,7 @@ describe('Priority Queue', function () {
     });
 
     it('peek on empty queue returns undefined', function () {
+        beforeEach();
         expect(queue.peek()).toEqual(undefined);
     });
 
@@ -102,6 +112,7 @@ describe('Priority Queue', function () {
     });
 
     it('forEach returns all elements', function () {
+        beforeEach();
         var elements = [];
         queue.forEach(function (e) {
             expect(true).toEqual(false); // should not enter here
@@ -128,6 +139,7 @@ describe('Priority Queue', function () {
     });
 
     it('toArray gives all the elements', function () {
+        beforeEach();
         var arr;
         expect(queue.toArray().length).toEqual(0);
 
@@ -145,6 +157,7 @@ describe('Priority Queue', function () {
     });
 
     it('equals returns true only if queues have the same elements', function () {
+        beforeEach();
         var queue2 = new buckets.PriorityQueue();
         queue.add(1);
         queue.add(2);
@@ -161,3 +174,5 @@ describe('Priority Queue', function () {
         expect(queue.equals([1, 2])).toBeFalsy();
     });
 });
+
+require = requireOrig;});

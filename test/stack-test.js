@@ -1,10 +1,19 @@
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
+
+var describe = require("tape-compat").describe;
+var it = require("tape-compat").it;
+var expect = require("tape-compat").expect;
+var buckets = require("buckets");
+
 describe('Stack', function () {
 
     var stack;
 
-    beforeEach(function () {
+    function beforeEach() {
         stack = new buckets.Stack();
-    });
+    };
+
+    beforeEach();
 
     it('pop returns and removes the top element or undefined', function () {
         expect(stack.pop()).toBeUndefined();
@@ -80,6 +89,7 @@ describe('Stack', function () {
     });
 
     it('toArray gives the elements in LIFO order', function () {
+        beforeEach();
         var arr;
         expect(stack.toArray().length).toEqual(0);
 
@@ -96,6 +106,7 @@ describe('Stack', function () {
     });
 
     it('equals returns true only if stacks have elements in the same order', function () {
+        beforeEach();
         var stack2 = new buckets.Stack();
         stack.push(1);
         stack.push(2);
@@ -111,3 +122,5 @@ describe('Stack', function () {
         expect(stack.equals([1, 2])).toBeFalsy();
     });
 });
+
+require = requireOrig;});
